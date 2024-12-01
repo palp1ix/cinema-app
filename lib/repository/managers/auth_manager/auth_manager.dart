@@ -16,13 +16,13 @@ class AuthManager {
     }
   }
 
-  void loggin(String token) {
-    jwtStorage.setJwt(token);
+  Future<void> loggin(String token) async {
+    await jwtStorage.setJwt(token);
     _status = AuthStatus.loggedIn;
   }
 
-  void logout() {
-    jwtStorage.deleteJwt();
+  Future<void> logout() async {
+    await jwtStorage.deleteJwt();
     _status = AuthStatus.notLoggedIn;
   }
 }

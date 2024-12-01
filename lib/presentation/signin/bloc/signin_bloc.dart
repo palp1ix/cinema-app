@@ -21,7 +21,9 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
             User(username: event.email, password: event.password));
         GetIt.I<AuthManager>().loggin(jwtToken);
         talker.log(jwtToken);
+        emit(SignInSuccess());
       } catch (e) {
+        emit(SignInError());
         talker.error(
             'Something went wrong in signin proccess. Error message: $e');
       }

@@ -17,6 +17,9 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       try {
         final dio = GetIt.I<Dio>();
         final authRequest = AuthRequest(dio: dio);
+        await authRequest.signUpWithEmailAndPassword(
+            User(username: event.email, password: event.password));
+        emit(SignUpSuccess());
         final jwtToken = await authRequest.signInWithEmailAndPassword(
             User(username: event.email, password: event.password));
         GetIt.I<AuthManager>().loggin(jwtToken);

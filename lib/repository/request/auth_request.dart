@@ -1,4 +1,5 @@
 import 'package:cinema/repository/models/user/user.dart';
+import 'package:cinema/repository/models/user/user_registration/user_registration.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -19,11 +20,15 @@ class AuthRequest {
     }
   }
 
-  Future<String> signUpWithEmailAndPassword(User user) async {
+  Future<void> signUpWithEmailAndPassword(User user) async {
     try {
-      final data = user.toJson();
-      final response = await dio.post('$endpoint/api/users/create', data: data);
-      return response.data['accessToken'];
+      final userRegistration = UserRegistration(
+        username: user.username,
+        email: user.username,
+        password: user.password,
+      );
+      final data = userRegistration.toJson();
+      await dio.post('$endpoint/api/auth/signup', data: data);
     } catch (e) {
       throw Exception(e);
     }
