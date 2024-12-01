@@ -8,20 +8,36 @@ class AdvancedInformationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    final theme = Theme.of(context);
+    return Column(
       children: [
         AdvancedInfoContainer(
-          icon: Icons.star_rounded,
+          icon: Image.asset(
+            'assets/icons/star.png',
+            width: 25,
+            height: 25,
+            color: theme.primaryColor,
+          ),
           text: 'Рейтинг',
           value: '8.9/10',
         ),
         AdvancedInfoContainer(
-          icon: Icons.movie_creation,
+          icon: Image.asset(
+            'assets/icons/genre.png',
+            width: 25,
+            height: 25,
+            color: theme.primaryColor,
+          ),
           text: 'Жанр',
           value: 'Фантастика',
         ),
         AdvancedInfoContainer(
-          icon: Icons.schedule_rounded,
+          icon: Image.asset(
+            'assets/icons/clock.png',
+            width: 25,
+            height: 25,
+            color: theme.primaryColor,
+          ),
           text: 'Длительность',
           value: '2ч 10м',
         )

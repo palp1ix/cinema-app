@@ -15,7 +15,8 @@ class _TrailerViewWidgetState extends State<TrailerViewWidget>
 
   Future<void> _initializeVideo() async {
     _controller = YoutubePlayerController(
-      initialVideoId: 'ck-b_28PMM8',
+      initialVideoId:
+          YoutubePlayer.convertUrlToId('https://youtu.be/9J45m0o7D2A')!,
       flags: const YoutubePlayerFlags(
           autoPlay: false, mute: false, enableCaption: false),
     );

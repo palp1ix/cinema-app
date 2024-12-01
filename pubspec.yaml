@@ -9,12 +9,28 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  auto_route: ^9.2.2
+  # UI
   carousel_slider: ^5.0.0
   google_fonts: ^6.2.1
-  video_player: ^2.9.2
+  easy_date_timeline: ^2.0.4
+  # Video
   youtube_player_flutter: ^9.1.1
   flutter_inappwebview: ^6.1.5
+  # Logic
+  flutter_bloc: ^8.1.6
+  # JSON parsing
+  json_serializable: ^6.9.0
+  json_annotation: ^4.9.0
+  # HTTP Requets
+  dio: ^5.7.0
+  # Working with env
+  flutter_dotenv: ^5.2.1 
+  # DI
+  get_it: ^8.0.2
+  # Log
+  talker_flutter: ^4.5.2
+  talker_dio_logger: ^4.5.2
+  talker_bloc_logger: ^4.5.2
 
 dev_dependencies:
   flutter_test:
@@ -25,3 +41,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/icons/
+    - assets/images/
+    - .env

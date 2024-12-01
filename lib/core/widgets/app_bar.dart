@@ -14,13 +14,17 @@ class CinemaSliverAppBar extends StatelessWidget {
       surfaceTintColor: Colors.transparent,
       pinned: true,
       floating: true,
+      toolbarHeight: 30,
       leading: GestureDetector(
         onTap: () {
           Navigator.of(context).pop();
         },
-        child: const Icon(Icons.arrow_back_ios_new, size: 18),
+        child: const Padding(
+          padding: EdgeInsets.only(bottom: 15.0),
+          child: Icon(Icons.arrow_back_ios_new, size: 18),
+        ),
       ),
-      bottom: PreferredSize(
+      flexibleSpace: PreferredSize(
           preferredSize: const Size.fromHeight(0),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),

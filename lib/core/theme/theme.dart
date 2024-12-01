@@ -6,7 +6,7 @@ final darkTheme = ThemeData(
       surface: Color.fromARGB(255, 15, 15, 15),
       surfaceContainer: Color(0xFF242423),
       onSurface: Color(0xFFFAF7F0),
-      onSecondary: Color(0xFFff0000)),
+      onSecondary: Color(0xFFf77f00)),
   inputDecorationTheme: const InputDecorationTheme(
     // prefixIcon: Icon(Icons.email),
     filled: true,
@@ -28,5 +28,5 @@ final darkTheme = ThemeData(
   useMaterial3: true,
   primaryColor: const Color(0xFFfca311),
   canvasColor: Colors.black,
-  fontFamily: GoogleFonts.getFont('Nunito').fontFamily,
+  fontFamily: GoogleFonts.getFont('Montserrat').fontFamily,
 );

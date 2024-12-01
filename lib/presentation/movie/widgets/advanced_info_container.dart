@@ -7,14 +7,14 @@ class AdvancedInfoContainer extends StatelessWidget {
     required this.text,
     required this.value,
   });
-  final IconData icon;
+  final Widget icon;
   final String text;
   final String value;
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
-      width: 120,
+      width: 130,
       decoration: BoxDecoration(
           border:
               Border.all(color: theme.colorScheme.surfaceContainer, width: 3),
@@ -23,10 +23,7 @@ class AdvancedInfoContainer extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
       child: Column(
         children: [
-          Icon(
-            icon,
-            color: theme.primaryColor,
-          ),
+          icon,
           Text(
             text,
             style: const TextStyle(fontWeight: FontWeight.bold),
