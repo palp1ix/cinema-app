@@ -4,8 +4,13 @@ import 'package:flutter/material.dart';
 class AdvancedInformationWidget extends StatelessWidget {
   const AdvancedInformationWidget({
     super.key,
+    required this.rating,
+    required this.genre,
+    required this.duration,
   });
-
+  final int rating;
+  final String genre;
+  final String duration;
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -19,7 +24,7 @@ class AdvancedInformationWidget extends StatelessWidget {
             color: theme.primaryColor,
           ),
           text: 'Рейтинг',
-          value: '8.9/10',
+          value: '$rating/10',
         ),
         AdvancedInfoContainer(
           icon: Image.asset(
@@ -29,7 +34,7 @@ class AdvancedInformationWidget extends StatelessWidget {
             color: theme.primaryColor,
           ),
           text: 'Жанр',
-          value: 'Фантастика',
+          value: genre,
         ),
         AdvancedInfoContainer(
           icon: Image.asset(
@@ -39,7 +44,7 @@ class AdvancedInformationWidget extends StatelessWidget {
             color: theme.primaryColor,
           ),
           text: 'Длительность',
-          value: '2ч 10м',
+          value: duration,
         )
       ],
     );

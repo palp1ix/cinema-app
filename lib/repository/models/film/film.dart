@@ -6,6 +6,7 @@ part 'film.g.dart';
 class Film {
   Film({
     required this.title,
+    required this.description,
     required this.releaseDate,
     required this.genre,
     required this.rating,
@@ -16,6 +17,7 @@ class Film {
   });
 
   final String title;
+  final String description;
   final String releaseDate;
   final String genre;
   final int rating;

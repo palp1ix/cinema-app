@@ -1,8 +1,10 @@
+import 'package:cinema/repository/managers/auth_manager/auth_manager.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:cinema/presentation/app.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:talker_bloc_logger/talker_bloc_logger.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';
@@ -25,5 +27,13 @@ void main() async {
   );
   Bloc.observer = TalkerBlocObserver(talker: talker);
   getIt.registerSingleton<Dio>(dio);
+
+  const secureStorage = FlutterSecureStorage();
+  getIt.registerSingleton<FlutterSecureStorage>(secureStorage);
+
+  final authManager = AuthManager();
+  await authManager.initUser();
+  getIt.registerSingleton<AuthManager>(authManager);
+
   runApp(const CinemaApp());
 }

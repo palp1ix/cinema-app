@@ -6,13 +6,25 @@ import 'package:cinema/presentation/ticket/view/ticket_page.dart';
 import 'package:flutter/material.dart';
 
 class MoviePage extends StatelessWidget {
-  const MoviePage({super.key, required this.title, required this.imageUrl});
+  const MoviePage(
+      {super.key,
+      required this.title,
+      required this.description,
+      required this.imageUrl,
+      required this.rating,
+      required this.genre,
+      required this.duration,
+      required this.trailerUrl});
   final String title;
+  final String description;
   final String imageUrl;
+  final int rating;
+  final String genre;
+  final String duration;
+  final String trailerUrl;
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: Scaffold(
@@ -32,7 +44,11 @@ class MoviePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const AdvancedInformationWidget()
+                  AdvancedInformationWidget(
+                    rating: rating,
+                    genre: genre,
+                    duration: duration,
+                  )
                 ],
               ),
             ),
@@ -52,18 +68,18 @@ class MoviePage extends StatelessWidget {
                   )),
             ),
             const SliverToBoxAdapter(child: InformationContainer()),
-            const SliverToBoxAdapter(
+            SliverToBoxAdapter(
               child: MainContainer(
                   title: 'Описание',
                   child: Text(
-                    'Приспособившись к совместному существованию, Эдди и Веном стали друзьями и вместе сражаются со злодеями. Но теперь за Эдди охотятся военные, а за Веномом — его инопланетные сородичи, угрожающие всему живому.',
-                    style: TextStyle(fontSize: 16),
+                    description,
+                    style: const TextStyle(fontSize: 16),
                   )),
             ),
             SliverToBoxAdapter(
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
-                  child: const TrailerViewWidget()),
+                  child: TrailerViewWidget(trailerUrl: trailerUrl)),
             ),
             SliverToBoxAdapter(
               child: CinemaButton(
@@ -71,7 +87,7 @@ class MoviePage extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const TicketPage()));
+                      builder: (context) => TicketPage(title: title)));
                 },
                 child: const Text(
                   'Забронировать',

@@ -13,6 +13,7 @@ dependencies:
   carousel_slider: ^5.0.0
   google_fonts: ^6.2.1
   easy_date_timeline: ^2.0.4
+  smooth_page_indicator: ^1.2.0+3
   # Video
   youtube_player_flutter: ^9.1.1
   flutter_inappwebview: ^6.1.5
@@ -31,6 +32,8 @@ dependencies:
   talker_flutter: ^4.5.2
   talker_dio_logger: ^4.5.2
   talker_bloc_logger: ^4.5.2
+  # Local storage
+  flutter_secure_storage: ^9.2.2
 
 dev_dependencies:
   flutter_test:

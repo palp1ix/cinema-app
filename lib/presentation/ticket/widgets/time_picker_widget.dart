@@ -12,6 +12,7 @@ class TimePickerWidget extends StatefulWidget {
     required this.color,
   });
   @override
+  // ignore: library_private_types_in_public_api
   _TimePickerWidgetState createState() => _TimePickerWidgetState();
 }
 

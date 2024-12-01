@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class TrailerViewWidget extends StatefulWidget {
-  const TrailerViewWidget({super.key});
+  const TrailerViewWidget({super.key, required this.trailerUrl});
+  final String trailerUrl;
 
   @override
   State<TrailerViewWidget> createState() => _TrailerViewWidgetState();
@@ -15,8 +16,7 @@ class _TrailerViewWidgetState extends State<TrailerViewWidget>
 
   Future<void> _initializeVideo() async {
     _controller = YoutubePlayerController(
-      initialVideoId:
-          YoutubePlayer.convertUrlToId('https://youtu.be/9J45m0o7D2A')!,
+      initialVideoId: YoutubePlayer.convertUrlToId(widget.trailerUrl)!,
       flags: const YoutubePlayerFlags(
           autoPlay: false, mute: false, enableCaption: false),
     );

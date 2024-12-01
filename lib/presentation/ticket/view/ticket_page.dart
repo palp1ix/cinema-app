@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TicketPage extends StatefulWidget {
-  const TicketPage({super.key});
+  const TicketPage({super.key, required this.title});
+  final String title;
 
   @override
   State<TicketPage> createState() => _TicketPageState();
@@ -112,7 +113,7 @@ class _TicketPageState extends State<TicketPage> {
               const CinemaSliverAppBar(),
               SliverToBoxAdapter(
                 child: MainContainer(
-                    title: 'Веном',
+                    title: widget.title,
                     child: Column(
                       children: [
                         ListTile(
