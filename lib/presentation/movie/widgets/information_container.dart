@@ -27,7 +27,9 @@ class InformationContainer extends StatelessWidget {
             child: Text(
               'Купи один билет - получи второй бесплатно',
               style: TextStyle(
-                  color: theme.primaryColor, fontWeight: FontWeight.bold),
+                  color: theme.primaryColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12),
             ),
           )
         ],

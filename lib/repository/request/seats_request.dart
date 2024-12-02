@@ -14,9 +14,7 @@ class SeatsRequest {
           await dio.get('$endpoint/api/sessions/$sessionsId/occupied');
       final data = response.data as List;
       try {
-        final seatsIds = data[0] as Map<String, dynamic>;
-        final occupiedSeats = seatsIds['seatIds'] as List;
-        final intOccupiedSeats = occupiedSeats.cast<int>();
+        final intOccupiedSeats = data.cast<int>();
         return intOccupiedSeats;
       } catch (e) {
         final intOccupiedSeats = <int>[];

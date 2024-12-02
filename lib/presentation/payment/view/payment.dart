@@ -1,11 +1,11 @@
 import 'package:cinema/core/widgets/widgets.dart';
-import 'package:cinema/repository/managers/auth_manager/auth_manager.dart';
 import 'package:cinema/repository/models/reserve/reserve.dart';
 import 'package:cinema/repository/models/session/session.dart';
 import 'package:cinema/repository/request/reserve_request.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage(
@@ -100,12 +100,24 @@ class _PaymentPageState extends State<PaymentPage> {
                                   height:
                                       MediaQuery.of(context).size.height * 0.9,
                                   width: MediaQuery.of(context).size.width,
-                                  child: RotatedBox(
-                                    quarterTurns: 45,
-                                    child: Container(
-                                        padding:
-                                            const EdgeInsets.only(right: 100),
-                                        child: Image.file(ticket)),
+                                  child: Column(
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () async {
+                                          await ImageGallerySaver.saveFile(
+                                              ticket.path,
+                                              isReturnPathOfIOS: true);
+                                        },
+                                        child: RotatedBox(
+                                          quarterTurns: 45,
+                                          child: Container(
+                                            padding: const EdgeInsets.only(
+                                                right: 100),
+                                            child: Image.file(ticket),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ));
                       }

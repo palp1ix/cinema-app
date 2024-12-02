@@ -37,6 +37,8 @@ dependencies:
   flutter_secure_storage: ^9.2.2
   # FIle
   path_provider: ^2.1.5
+  # Galary saver
+  image_gallery_saver: ^2.0.3
 
 dev_dependencies:
   flutter_test:

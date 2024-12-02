@@ -123,7 +123,7 @@ class _TicketPageState extends State<TicketPage> {
                             style: TextStyle(
                                 color: theme.colorScheme.onSurface,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 20),
+                                fontSize: 18),
                           ),
                         );
                       } else {
@@ -139,7 +139,7 @@ class _TicketPageState extends State<TicketPage> {
                             style: TextStyle(
                                 color: theme.hintColor,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 20),
+                                fontSize: 18),
                           ),
                         );
                       }
