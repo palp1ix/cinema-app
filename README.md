@@ -43,7 +43,7 @@ A modern mobile application for browsing movies and purchasing tickets, built wi
 
 1. Clone the repository
 ```bash
-git clone [https://github.com/nikameru/cinema-backend.git]
+git clone https://github.com/nikameru/cinema-backend.git
 ```
 ### .env Example
 
