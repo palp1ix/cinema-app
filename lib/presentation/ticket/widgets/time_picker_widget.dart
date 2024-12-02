@@ -10,7 +10,9 @@ class TimePickerWidget extends StatefulWidget {
     super.key,
     required this.times,
     required this.color,
+    required this.onTimeChanged,
   });
+  final Function(String) onTimeChanged;
   @override
   // ignore: library_private_types_in_public_api
   _TimePickerWidgetState createState() => _TimePickerWidgetState();
@@ -30,6 +32,7 @@ class _TimePickerWidgetState extends State<TimePickerWidget> {
           onTap: () {
             setState(() {
               context.read<ConfirmCubit>().changeTimePicked(true, time);
+              widget.onTimeChanged(time);
               _selectedTime = time;
             });
           },

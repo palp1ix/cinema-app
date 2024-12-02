@@ -10,8 +10,16 @@ class AuthManager {
     return _status;
   }
 
+  Future<void> setId(int id) async {
+    await jwtStorage.setUserId(id);
+  }
+
+  Future<int?> getId() async {
+    return await jwtStorage.getUserId();
+  }
+
   Future<void> initUser() async {
-    if (await jwtStorage.getJwt() != null) {
+    if (await jwtStorage.getJwt() != '') {
       _status = AuthStatus.loggedIn;
     }
   }

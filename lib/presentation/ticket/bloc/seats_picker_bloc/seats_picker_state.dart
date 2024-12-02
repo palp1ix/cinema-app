@@ -1,13 +1,11 @@
 part of 'seats_picker_bloc.dart';
 
-abstract class SeatsPickerEvent {}
+class SeatsPickerState {}
 
-class AddSeat extends SeatsPickerEvent {
-  final Seat seat;
-  AddSeat({required this.seat});
-}
+class SeatsPickerInitial extends SeatsPickerState {}
 
-class DeleteSeat extends SeatsPickerEvent {
-  final Seat seat;
-  DeleteSeat({required this.seat});
+class PriceCounted extends SeatsPickerState {
+  final double price;
+
+  PriceCounted({required this.price});
 }

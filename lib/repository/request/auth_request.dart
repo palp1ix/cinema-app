@@ -20,7 +20,7 @@ class AuthRequest {
     }
   }
 
-  Future<void> signUpWithEmailAndPassword(User user) async {
+  Future<int> signUpWithEmailAndPassword(User user) async {
     try {
       final userRegistration = UserRegistration(
         username: user.username,
@@ -28,7 +28,8 @@ class AuthRequest {
         password: user.password,
       );
       final data = userRegistration.toJson();
-      await dio.post('$endpoint/api/auth/signup', data: data);
+      final response = await dio.post('$endpoint/api/auth/signup', data: data);
+      return response.data['id'];
     } catch (e) {
       throw Exception(e);
     }

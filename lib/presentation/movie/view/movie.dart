@@ -3,25 +3,15 @@ import 'package:cinema/presentation/movie/widgets/advanced_information_widget.da
 import 'package:cinema/presentation/movie/widgets/information_container.dart';
 import 'package:cinema/presentation/movie/widgets/trailer_view_widget.dart';
 import 'package:cinema/presentation/ticket/view/ticket_page.dart';
+import 'package:cinema/repository/models/session/session.dart';
 import 'package:flutter/material.dart';
 
 class MoviePage extends StatelessWidget {
-  const MoviePage(
-      {super.key,
-      required this.title,
-      required this.description,
-      required this.imageUrl,
-      required this.rating,
-      required this.genre,
-      required this.duration,
-      required this.trailerUrl});
-  final String title;
-  final String description;
-  final String imageUrl;
-  final int rating;
-  final String genre;
-  final String duration;
-  final String trailerUrl;
+  const MoviePage({
+    super.key,
+    required this.session,
+  });
+  final Session session;
 
   @override
   Widget build(BuildContext context) {
@@ -39,15 +29,15 @@ class MoviePage extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(40.0),
                       child: Image.network(
-                        imageUrl,
+                        session.film.coverLink,
                         width: 220,
                       ),
                     ),
                   ),
                   AdvancedInformationWidget(
-                    rating: rating,
-                    genre: genre,
-                    duration: duration,
+                    rating: session.film.rating,
+                    genre: session.film.genre,
+                    duration: session.film.duration,
                   )
                 ],
               ),
@@ -60,7 +50,7 @@ class MoviePage extends StatelessWidget {
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Text(
-                        title,
+                        session.film.title,
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 28),
                       ),
@@ -72,14 +62,15 @@ class MoviePage extends StatelessWidget {
               child: MainContainer(
                   title: 'Описание',
                   child: Text(
-                    description,
+                    session.film.description,
                     style: const TextStyle(fontSize: 16),
                   )),
             ),
             SliverToBoxAdapter(
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
-                  child: TrailerViewWidget(trailerUrl: trailerUrl)),
+                  child: TrailerViewWidget(
+                      trailerUrl: session.film.trailerYoutubeLink)),
             ),
             SliverToBoxAdapter(
               child: CinemaButton(
@@ -87,7 +78,8 @@ class MoviePage extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => TicketPage(title: title)));
+                      builder: (context) => TicketPage(
+                          title: session.film.title, session: session)));
                 },
                 child: const Text(
                   'Забронировать',

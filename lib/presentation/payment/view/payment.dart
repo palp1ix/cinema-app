@@ -1,8 +1,26 @@
 import 'package:cinema/core/widgets/widgets.dart';
+import 'package:cinema/repository/managers/auth_manager/auth_manager.dart';
+import 'package:cinema/repository/models/reserve/reserve.dart';
+import 'package:cinema/repository/models/session/session.dart';
+import 'package:cinema/repository/request/reserve_request.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 class PaymentPage extends StatefulWidget {
-  const PaymentPage({super.key});
+  const PaymentPage(
+      {super.key,
+      required this.selectedSeats,
+      required this.session,
+      required this.date,
+      required this.time,
+      required this.reserve});
+
+  final List<int> selectedSeats;
+  final Session session;
+  final DateTime date;
+  final String time;
+  final Reserve reserve;
 
   @override
   State<PaymentPage> createState() => _PaymentPageState();
@@ -28,21 +46,21 @@ class _PaymentPageState extends State<PaymentPage> {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                 ),
-                const InfoBlockWidget(
+                InfoBlockWidget(
                   title: 'Фильм',
-                  subtitle: 'Веном. Последний танец',
+                  subtitle: widget.session.film.title,
                 ),
-                const InfoBlockWidget(
+                InfoBlockWidget(
                   title: 'Дата',
-                  subtitle: '23.12',
+                  subtitle: '${widget.date.day}.${widget.date.month}',
                 ),
-                const InfoBlockWidget(
+                InfoBlockWidget(
                   title: 'Время',
-                  subtitle: '16:20',
+                  subtitle: widget.time,
                 ),
-                const InfoBlockWidget(
+                InfoBlockWidget(
                   title: 'Места',
-                  subtitle: '24  25',
+                  subtitle: widget.selectedSeats.toString(),
                 ),
                 Container(
                   margin: const EdgeInsets.all(10),
@@ -69,9 +87,27 @@ class _PaymentPageState extends State<PaymentPage> {
                 ),
                 CinemaButton(
                     width: MediaQuery.of(context).size.width,
-                    onPressed: () {
+                    onPressed: () async {
                       if (_isSelected) {
-                        // some logic for successed payment
+                        final reserveRequest =
+                            ReserveRequest(dio: GetIt.I<Dio>());
+                        final id = await reserveRequest.buy(widget.reserve);
+                        final ticket = await reserveRequest.getTicket(id);
+                        showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            builder: (context) => SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.9,
+                                  width: MediaQuery.of(context).size.width,
+                                  child: RotatedBox(
+                                    quarterTurns: 45,
+                                    child: Container(
+                                        padding:
+                                            const EdgeInsets.only(right: 100),
+                                        child: Image.file(ticket)),
+                                  ),
+                                ));
                       }
                     },
                     color: _isSelected ? null : theme.hintColor,

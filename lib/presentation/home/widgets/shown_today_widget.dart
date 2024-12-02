@@ -41,13 +41,7 @@ class _ShownTodayWidgetState extends State<ShownTodayWidget> {
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => MoviePage(
-                                  imageUrl: session.film.coverLink,
-                                  title: session.film.title,
-                                  description: session.film.description,
-                                  duration: session.film.duration,
-                                  genre: session.film.genre,
-                                  rating: session.film.rating,
-                                  trailerUrl: session.film.trailerYoutubeLink,
+                                  session: session,
                                 )));
                       },
                       child: Image.network(

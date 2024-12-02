@@ -22,7 +22,9 @@ Future<void> di() async {
   }
   final dio = Dio();
   dio.interceptors.add(
-    TalkerDioLogger(talker: talker),
+    TalkerDioLogger(
+        talker: talker,
+        settings: const TalkerDioLoggerSettings(printResponseData: false)),
   );
   Bloc.observer = TalkerBlocObserver(talker: talker);
   getIt.registerSingleton<Dio>(dio);
@@ -31,6 +33,7 @@ Future<void> di() async {
   getIt.registerSingleton<FlutterSecureStorage>(secureStorage);
 
   final authManager = AuthManager();
+  // await authManager.logout();
   await authManager.initUser();
   getIt.registerSingleton<AuthManager>(authManager);
 }

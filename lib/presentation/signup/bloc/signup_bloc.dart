@@ -17,12 +17,14 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       try {
         final dio = GetIt.I<Dio>();
         final authRequest = AuthRequest(dio: dio);
-        await authRequest.signUpWithEmailAndPassword(
+        final authManager = GetIt.I<AuthManager>();
+        final id = await authRequest.signUpWithEmailAndPassword(
             User(username: event.email, password: event.password));
+        authManager.setId(id);
         emit(SignUpSuccess());
         final jwtToken = await authRequest.signInWithEmailAndPassword(
             User(username: event.email, password: event.password));
-        GetIt.I<AuthManager>().loggin(jwtToken);
+        authManager.loggin(jwtToken);
         talker.log(jwtToken);
       } catch (e) {
         talker.error(

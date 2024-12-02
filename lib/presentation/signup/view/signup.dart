@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:cinema/presentation/signin/view/signin.dart';
 import 'package:cinema/presentation/signup/bloc/signup_bloc.dart';
 import 'package:flutter/material.dart';

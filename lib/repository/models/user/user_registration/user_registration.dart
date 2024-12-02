@@ -7,6 +7,7 @@ part 'user_registration.g.dart';
 class UserRegistration extends User {
   UserRegistration(
       {required this.email, required super.username, required super.password});
+
   final String email;
 
   factory UserRegistration.fromJson(Map<String, dynamic> json) =>

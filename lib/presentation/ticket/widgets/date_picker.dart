@@ -2,7 +2,8 @@ import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 
 class DatePicker extends StatefulWidget {
-  const DatePicker({super.key});
+  const DatePicker({super.key, required this.onDateChange});
+  final Function(DateTime) onDateChange;
   @override
   State<DatePicker> createState() => _DatePickerState();
 }
@@ -26,6 +27,7 @@ class _DatePickerState extends State<DatePicker> {
             DateTime.now().year, DateTime.now().month, DateTime.now().day + 5),
         onDateChange: (date) {
           setState(() {
+            widget.onDateChange(date);
             _selectedDate = date;
           });
         },

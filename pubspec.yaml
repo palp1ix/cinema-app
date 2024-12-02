@@ -19,6 +19,7 @@ dependencies:
   flutter_inappwebview: ^6.1.5
   # Logic
   flutter_bloc: ^8.1.6
+  provider: ^6.1.2
   # JSON parsing
   json_serializable: ^6.9.0
   json_annotation: ^4.9.0
@@ -34,6 +35,8 @@ dependencies:
   talker_bloc_logger: ^4.5.2
   # Local storage
   flutter_secure_storage: ^9.2.2
+  # FIle
+  path_provider: ^2.1.5
 
 dev_dependencies:
   flutter_test:

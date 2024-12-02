@@ -1,6 +1,8 @@
+import 'package:cinema/presentation/ticket/bloc/seats_occupied_bloc.dart/seats_occupied_bloc.dart';
 import 'package:cinema/presentation/ticket/widgets/seat_selection_widget.dart';
 import 'package:cinema/repository/models/seat/seat.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SeatsPickerWidget extends StatelessWidget {
   const SeatsPickerWidget({super.key});
@@ -39,19 +41,33 @@ class SeatsPickerBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bloc = context.read<SeatsOccupiedBloc>();
     return Column(
       children: [
         const ScreenWidget(),
         SizedBox(
           height: 250,
-          child: SeatSelectionWidget(
-            seats: List.generate(
-              89,
-              (index) => Seat(
-                id: index + 1,
-                status: index % 12 == 0 ? SeatStatus.occupied : SeatStatus.free,
-              ),
-            ),
+          child: BlocBuilder<SeatsOccupiedBloc, SeatsOccupiedState>(
+            bloc: bloc,
+            builder: (context, state) {
+              if (state is SeatsLoaded) {
+                return SeatSelectionWidget(
+                  seats: List.generate(
+                    89,
+                    (index) => Seat(
+                      id: index + 1,
+                      status: state.seats.contains(index)
+                          ? SeatStatus.occupied
+                          : SeatStatus.free,
+                    ),
+                  ),
+                );
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator.adaptive(),
+                );
+              }
+            },
           ),
         ),
       ],

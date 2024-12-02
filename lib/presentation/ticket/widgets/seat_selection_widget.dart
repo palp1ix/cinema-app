@@ -21,6 +21,7 @@ class _SeatSelectionWidgetState extends State<SeatSelectionWidget> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final List<int> selectedSeatsId = context.read<List<int>>();
     final bloc = context.read<SeatsPickerBloc>();
     return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
@@ -52,10 +53,12 @@ class _SeatSelectionWidgetState extends State<SeatSelectionWidget> {
                       final cubitConfirm = context.read<ConfirmCubit>();
                       setState(() {
                         if (selectedSeats.contains(seat)) {
+                          selectedSeatsId.remove(seat.id);
                           selectedSeats.remove(seat);
                           bloc.add(DeleteSeat(seat: seat));
                           cubitConfirm.changeSeatPicked(seat, false);
                         } else {
+                          selectedSeatsId.add(seat.id);
                           selectedSeats.add(seat);
                           bloc.add(AddSeat(seat: seat));
                           cubitConfirm.changeSeatPicked(seat, true);
