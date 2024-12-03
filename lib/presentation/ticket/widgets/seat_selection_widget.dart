@@ -17,7 +17,6 @@ class SeatSelectionWidget extends StatefulWidget {
 }
 
 class _SeatSelectionWidgetState extends State<SeatSelectionWidget> {
-  final List<Seat> selectedSeats = [];
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -35,7 +34,7 @@ class _SeatSelectionWidgetState extends State<SeatSelectionWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(seatsInRow, (seatIndex) {
               // Calculate index based on the sum of seats in previous rows plus current seat index
-              int index = 0;
+              int index = 1;
               for (int i = 0; i < rowIndex; i++) {
                 index += 7 + (i * 2); // Add seats from previous rows
               }
@@ -52,14 +51,12 @@ class _SeatSelectionWidgetState extends State<SeatSelectionWidget> {
                     if (seat.status == SeatStatus.free) {
                       final cubitConfirm = context.read<ConfirmCubit>();
                       setState(() {
-                        if (selectedSeats.contains(seat)) {
+                        if (selectedSeatsId.contains(seat.id)) {
                           selectedSeatsId.remove(seat.id);
-                          selectedSeats.remove(seat);
                           bloc.add(DeleteSeat(seat: seat));
                           cubitConfirm.changeSeatPicked(seat, false);
                         } else {
                           selectedSeatsId.add(seat.id);
-                          selectedSeats.add(seat);
                           bloc.add(AddSeat(seat: seat));
                           cubitConfirm.changeSeatPicked(seat, true);
                         }
@@ -71,7 +68,7 @@ class _SeatSelectionWidgetState extends State<SeatSelectionWidget> {
                     width: 18,
                     height: 18,
                     decoration: BoxDecoration(
-                      color: selectedSeats.contains(seat)
+                      color: selectedSeatsId.contains(seat.id)
                           ? theme.primaryColor // Выбрано
                           : seat.status == SeatStatus.occupied
                               ? theme.hintColor // Занято

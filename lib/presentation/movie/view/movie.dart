@@ -8,7 +8,7 @@ import 'package:cinema/router/router.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
-class MoviePage extends StatelessWidget {
+class MoviePage extends StatefulWidget {
   const MoviePage({
     super.key,
     required this.session,
@@ -16,18 +16,29 @@ class MoviePage extends StatelessWidget {
   final Session session;
 
   @override
+  State<MoviePage> createState() => _MoviePageState();
+}
+
+class _MoviePageState extends State<MoviePage> {
+  ScrollController controller = ScrollController();
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.only(bottom: 20),
         child: Scaffold(
           body: CustomScrollView(
+            controller: controller,
             slivers: [
-              MovieAppBar(session: session),
+              MovieAppBar(
+                session: widget.session,
+                scrollController: controller,
+              ),
               SliverToBoxAdapter(
                   child: AdvancedInformationWidget(
-                rating: session.film.rating,
-                genre: session.film.genre,
-                duration: session.film.duration,
+                rating: widget.session.film.rating,
+                genre: widget.session.film.genre,
+                duration: widget.session.film.duration,
               )),
               SliverToBoxAdapter(
                 child: Align(
@@ -37,7 +48,7 @@ class MoviePage extends StatelessWidget {
                       child: FittedBox(
                         fit: BoxFit.scaleDown,
                         child: Text(
-                          session.film.title,
+                          widget.session.film.title,
                           style: const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 28),
                         ),
@@ -49,7 +60,7 @@ class MoviePage extends StatelessWidget {
                 child: MainContainer(
                     title: 'Описание',
                     child: Text(
-                      session.film.description,
+                      widget.session.film.description,
                       style: const TextStyle(fontSize: 16),
                     )),
               ),
@@ -57,7 +68,7 @@ class MoviePage extends StatelessWidget {
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: TrailerViewWidget(
-                        trailerUrl: session.film.trailerYoutubeLink)),
+                        trailerUrl: widget.session.film.trailerYoutubeLink)),
               ),
               SliverToBoxAdapter(
                 child: CinemaButton(
@@ -65,7 +76,8 @@ class MoviePage extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                   onPressed: () {
                     context.router.push(TicketRoute(
-                        title: session.film.title, session: session));
+                        title: widget.session.film.title,
+                        session: widget.session));
                   },
                   child: const Text(
                     'Забронировать',
@@ -80,13 +92,40 @@ class MoviePage extends StatelessWidget {
   }
 }
 
-class MovieAppBar extends StatelessWidget {
+class MovieAppBar extends StatefulWidget {
   const MovieAppBar({
     super.key,
     required this.session,
+    required this.scrollController,
   });
 
   final Session session;
+  final ScrollController scrollController;
+
+  @override
+  State<MovieAppBar> createState() => _MovieAppBarState();
+}
+
+class _MovieAppBarState extends State<MovieAppBar> {
+  double _opacity = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.scrollController.addListener(() {
+      final opacity = widget.scrollController.offset /
+          (500); // Adjust this value to change when dimming starts
+      setState(() {
+        _opacity = opacity.clamp(0.0, 1.0);
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    widget.scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +147,7 @@ class MovieAppBar extends StatelessWidget {
           fit: StackFit.expand,
           children: [
             Image.network(
-              session.film.coverLink,
+              widget.session.film.coverLink,
               fit: BoxFit.cover,
             ),
             DecoratedBox(
@@ -117,11 +156,8 @@ class MovieAppBar extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Colors.transparent,
-                    Colors.transparent,
-                    Colors.transparent,
-                    Colors.transparent,
-                    theme.colorScheme.surface,
+                    theme.colorScheme.surface.withOpacity(_opacity),
+                    theme.colorScheme.surface.withOpacity(_opacity),
                   ],
                 ),
               ),
