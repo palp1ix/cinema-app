@@ -7,6 +7,7 @@ import 'package:cinema/presentation/payment/view/payment.dart';
 import 'package:cinema/presentation/auth/pages/signin/view/signin.dart';
 import 'package:cinema/presentation/auth/pages/signup/view/signup.dart';
 import 'package:cinema/presentation/ticket/view/ticket_page.dart';
+import 'package:cinema/router/guards/auth_guard.dart';
 import 'package:flutter/material.dart';
 
 part 'router.gr.dart';
@@ -17,8 +18,10 @@ class AppRouter extends RootStackRouter {
   List<AutoRoute> get routes => [
         AutoRoute(page: HomeRoute.page, initial: true),
         AutoRoute(page: MovieRoute.page, path: '/movie'),
-        AutoRoute(page: TicketRoute.page, path: '/ticket'),
-        AutoRoute(page: PaymentRoute.page, path: '/payment'),
+        AutoRoute(
+            page: TicketRoute.page, path: '/ticket', guards: [AuthGuard()]),
+        AutoRoute(
+            page: PaymentRoute.page, path: '/payment', guards: [AuthGuard()]),
         AutoRoute(page: SignInRoute.page, path: '/signin'),
         AutoRoute(page: SignUpRoute.page, path: '/signup'),
       ];
