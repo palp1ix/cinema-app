@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import 'package:cinema/repository/models/film/film.dart';
-import 'package:cinema/repository/models/session/session.dart';
+import 'package:cinema/data/models/film/film.dart';
+import 'package:cinema/data/models/session/session.dart';
 
 class FilmRequest {
   FilmRequest({
@@ -55,9 +55,9 @@ class FilmRequest {
     try {
       // await setNewFilmRoomSession();
       // await changeFilmParam();
-      // FIXME: Delete -1
+      // FIXME: Delete -2
       final response = await dio
-          .get('$endpoint/api/sessions/current?daysOffset=${dayOffset - 1}');
+          .get('$endpoint/api/sessions/current?daysOffset=${dayOffset - 2}');
       final data = response.data as List<dynamic>;
       final List<Session> sessions =
           data.map((e) => Session.fromJson(e)).toList();

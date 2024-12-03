@@ -39,6 +39,10 @@ dependencies:
   path_provider: ^2.1.5
   # Galary saver
   image_gallery_saver: ^2.0.3
+  # JWT Decoder
+  jwt_decoder: ^2.0.1
+  # Router
+  auto_route: ^9.2.2
 
 dev_dependencies:
   flutter_test:

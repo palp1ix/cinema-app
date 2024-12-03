@@ -1,6 +1,4 @@
-import 'package:cinema/presentation/ticket/bloc/seats_picker_cubit/confirm_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TimePickerWidget extends StatefulWidget {
   final List<String> times;
@@ -31,7 +29,6 @@ class _TimePickerWidgetState extends State<TimePickerWidget> {
         return GestureDetector(
           onTap: () {
             setState(() {
-              context.read<ConfirmCubit>().changeTimePicked(true, time);
               widget.onTimeChanged(time);
               _selectedTime = time;
             });

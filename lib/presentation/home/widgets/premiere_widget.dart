@@ -1,5 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:cinema/core/widgets/main_container.dart';
+import 'package:cinema/presentation/core/widgets/main_container.dart';
 import 'package:flutter/material.dart';
 
 class PremiereWidget extends StatelessWidget {

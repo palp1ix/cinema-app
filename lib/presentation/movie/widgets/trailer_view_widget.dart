@@ -1,4 +1,4 @@
-import 'package:cinema/core/widgets/main_container.dart';
+import 'package:cinema/presentation/core/widgets/main_container.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 

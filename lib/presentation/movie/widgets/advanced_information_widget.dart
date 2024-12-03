@@ -14,7 +14,7 @@ class AdvancedInformationWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Column(
+    return Row(
       children: [
         AdvancedInfoContainer(
           icon: Image.asset(
@@ -43,7 +43,7 @@ class AdvancedInformationWidget extends StatelessWidget {
             height: 25,
             color: theme.primaryColor,
           ),
-          text: 'Длительность',
+          text: 'Время',
           value: duration,
         )
       ],

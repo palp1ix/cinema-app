@@ -1,4 +1,5 @@
-import 'package:cinema/presentation/signin/view/signin.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:cinema/router/router.dart';
 import 'package:flutter/material.dart';
 
 class CinemaSearchBar extends StatelessWidget {
@@ -43,8 +44,7 @@ class CinemaSearchBar extends StatelessWidget {
           height: 45,
           child: IconButton(
             onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const SignInPage()));
+              context.router.push(const SignInRoute());
             },
             icon: const Icon(Icons.person),
             color: theme.hintColor,

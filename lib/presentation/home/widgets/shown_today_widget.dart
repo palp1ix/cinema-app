@@ -1,8 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:cinema/core/widgets/main_container.dart';
+import 'package:cinema/presentation/core/widgets/main_container.dart';
 import 'package:cinema/presentation/home/bloc/sessions_bloc.dart';
-import 'package:cinema/presentation/movie/view/movie.dart';
-import 'package:cinema/repository/models/session/session.dart';
+import 'package:cinema/data/models/session/session.dart';
+import 'package:cinema/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -39,10 +40,7 @@ class _ShownTodayWidgetState extends State<ShownTodayWidget> {
                     borderRadius: BorderRadius.circular(10),
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => MoviePage(
-                                  session: session,
-                                )));
+                        context.router.push(MovieRoute(session: session));
                       },
                       child: Image.network(
                         session.film.coverLink,

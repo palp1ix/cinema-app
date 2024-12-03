@@ -1,6 +1,7 @@
-import 'package:cinema/repository/storage/jwt_storage.dart';
+import 'package:cinema/data/local_data_source/jwt_storage.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 
 class AuthManager {
   AuthStatus _status = AuthStatus.notLoggedIn;
@@ -19,7 +20,8 @@ class AuthManager {
   }
 
   Future<void> initUser() async {
-    if (await jwtStorage.getJwt() != '') {
+    final jwt = await jwtStorage.getJwt();
+    if (jwt != '') {
       _status = AuthStatus.loggedIn;
     }
   }
@@ -27,12 +29,18 @@ class AuthManager {
   Future<void> loggin(String token) async {
     await jwtStorage.setJwt(token);
     _status = AuthStatus.loggedIn;
+    setId(_getUserIdFromToken(token));
   }
 
   Future<void> logout() async {
     await jwtStorage.deleteJwt();
     _status = AuthStatus.notLoggedIn;
   }
+}
+
+int _getUserIdFromToken(String token) {
+  final decoded = JwtDecoder.decode(token);
+  return decoded['sub'];
 }
 
 enum AuthStatus {

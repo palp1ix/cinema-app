@@ -1,5 +1,5 @@
-import 'package:cinema/repository/models/film/film.dart';
-import 'package:cinema/repository/models/room/room.dart';
+import 'package:cinema/data/models/film/film.dart';
+import 'package:cinema/data/models/room/room.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'session.g.dart';

@@ -1,6 +1,6 @@
-import 'package:cinema/repository/managers/auth_manager/auth_manager.dart';
-import 'package:cinema/repository/models/user/user.dart';
-import 'package:cinema/repository/request/auth_request.dart';
+import 'package:cinema/domain/auth_manager/auth_manager.dart';
+import 'package:cinema/data/models/user/user.dart';
+import 'package:cinema/data/remote_data_source/auth_request.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';

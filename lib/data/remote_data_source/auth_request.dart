@@ -1,5 +1,5 @@
-import 'package:cinema/repository/models/user/user.dart';
-import 'package:cinema/repository/models/user/user_registration/user_registration.dart';
+import 'package:cinema/data/models/user/user.dart';
+import 'package:cinema/data/models/user/user_registration/user_registration.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 

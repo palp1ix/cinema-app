@@ -4,5 +4,5 @@ import 'package:cinema/presentation/app.dart';
 
 void main() async {
   await di();
-  runApp(const CinemaApp());
+  runApp(CinemaApp());
 }

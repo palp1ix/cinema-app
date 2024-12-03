@@ -1,4 +1,4 @@
-import 'package:cinema/repository/models/seat/seat.dart';
+import 'package:cinema/data/models/seat/seat.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'seats_picker_event.dart';

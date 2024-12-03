@@ -1,4 +1,5 @@
-import 'package:cinema/repository/managers/auth_manager/auth_manager.dart';
+import 'package:cinema/data/remote_data_source/dio_interseptor.dart';
+import 'package:cinema/domain/auth_manager/auth_manager.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,10 +31,11 @@ Future<void> di() async {
   getIt.registerSingleton<Dio>(dio);
 
   const secureStorage = FlutterSecureStorage();
+  dio.interceptors.add(JwtInterceptor(secureStorage: secureStorage));
   getIt.registerSingleton<FlutterSecureStorage>(secureStorage);
 
   final authManager = AuthManager();
-  await authManager.logout();
+  // await authManager.logout();
   await authManager.initUser();
   getIt.registerSingleton<AuthManager>(authManager);
 }

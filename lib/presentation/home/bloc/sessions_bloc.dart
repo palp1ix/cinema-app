@@ -1,5 +1,5 @@
-import 'package:cinema/repository/models/session/session.dart';
-import 'package:cinema/repository/request/film_request.dart';
+import 'package:cinema/data/models/session/session.dart';
+import 'package:cinema/data/remote_data_source/film_request.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';

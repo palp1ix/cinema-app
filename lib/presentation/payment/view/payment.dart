@@ -1,25 +1,25 @@
-import 'package:cinema/core/widgets/widgets.dart';
-import 'package:cinema/repository/models/reserve/reserve.dart';
-import 'package:cinema/repository/models/session/session.dart';
-import 'package:cinema/repository/request/reserve_request.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:cinema/presentation/core/widgets/widgets.dart';
+import 'package:cinema/data/models/reserve/reserve.dart';
+import 'package:cinema/data/models/session/session.dart';
+import 'package:cinema/data/remote_data_source/reserve_request.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 
+@RoutePage()
 class PaymentPage extends StatefulWidget {
   const PaymentPage(
       {super.key,
       required this.selectedSeats,
       required this.session,
       required this.date,
-      required this.time,
       required this.reserve});
 
   final List<int> selectedSeats;
   final Session session;
   final DateTime date;
-  final String time;
   final Reserve reserve;
 
   @override
@@ -56,7 +56,7 @@ class _PaymentPageState extends State<PaymentPage> {
                 ),
                 InfoBlockWidget(
                   title: 'Время',
-                  subtitle: widget.time,
+                  subtitle: widget.session.date.split('T')[1].split('.')[0],
                 ),
                 InfoBlockWidget(
                   title: 'Места',
