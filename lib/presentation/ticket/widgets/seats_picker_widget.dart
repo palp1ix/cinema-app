@@ -55,7 +55,7 @@ class SeatsPickerBody extends StatelessWidget {
                   seats: List.generate(
                     89,
                     (index) => Seat(
-                      id: index,
+                      id: index + 1,
                       status: state.seats.contains(index)
                           ? SeatStatus.occupied
                           : SeatStatus.free,

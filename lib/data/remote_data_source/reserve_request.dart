@@ -58,7 +58,9 @@ class ReserveRequest implements ReserveRepository {
           responseType: ResponseType.bytes, // Set response type to bytes
         ),
       );
-
+      if (response.data == null) {
+        throw Exception('No ticket found');
+      }
       final file = await _writeBytesToFile(response.data, id);
 
       return file;

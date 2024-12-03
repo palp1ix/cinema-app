@@ -2,11 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cinema/presentation/core/widgets/widgets.dart';
 import 'package:cinema/data/models/reserve/reserve.dart';
 import 'package:cinema/data/models/session/session.dart';
-import 'package:cinema/data/remote_data_source/reserve_request.dart';
-import 'package:dio/dio.dart';
+import 'package:cinema/presentation/payment/bloc/payment_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
 class PaymentPage extends StatefulWidget {
@@ -28,111 +26,123 @@ class PaymentPage extends StatefulWidget {
 
 class _PaymentPageState extends State<PaymentPage> {
   bool _isSelected = false;
+  final _paymentBloc = PaymentBloc();
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          const CinemaSliverAppBar(),
-          SliverToBoxAdapter(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Center(
-                  child: Text(
-                    'Проверьте информацию',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                  ),
-                ),
-                InfoBlockWidget(
-                  title: 'Фильм',
-                  subtitle: widget.session.film.title,
-                ),
-                InfoBlockWidget(
-                  title: 'Дата',
-                  subtitle: '${widget.date.day}.${widget.date.month}',
-                ),
-                InfoBlockWidget(
-                  title: 'Время',
-                  subtitle: widget.session.date.split('T')[1].split('.')[0],
-                ),
-                InfoBlockWidget(
-                  title: 'Места',
-                  subtitle: widget.selectedSeats.toString(),
-                ),
-                Container(
-                  margin: const EdgeInsets.all(10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Checkbox(
-                          value: _isSelected,
-                          activeColor: theme.primaryColor,
-                          onChanged: (value) {
-                            setState(() {
-                              _isSelected = value ?? false;
-                            });
-                          }),
-                      const Flexible(
-                        child: Text(
-                          'Я осознаю, что денежные средства за неиспользованный билет не возвращаются',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                CinemaButton(
-                    width: MediaQuery.of(context).size.width,
-                    onPressed: () async {
-                      if (_isSelected) {
-                        final reserveRequest =
-                            ReserveRequest(dio: GetIt.I<Dio>());
-                        final id = await reserveRequest.buy(widget.reserve);
-                        final ticket = await reserveRequest.getTicket(id);
-                        showModalBottomSheet(
-                            context: context,
-                            isScrollControlled: true,
-                            builder: (context) => SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.9,
-                                  width: MediaQuery.of(context).size.width,
-                                  child: Column(
-                                    children: [
-                                      GestureDetector(
-                                        onTap: () async {
-                                          await ImageGallerySaver.saveFile(
-                                              ticket.path,
-                                              isReturnPathOfIOS: true);
-                                        },
-                                        child: RotatedBox(
-                                          quarterTurns: 45,
-                                          child: Container(
-                                            padding: const EdgeInsets.only(
-                                                right: 100),
-                                            child: Image.file(ticket),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ));
-                      }
-                    },
-                    color: _isSelected ? null : theme.hintColor,
-                    child: const Center(
-                        child: Text('Оплатить',
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold))))
-              ],
+    return BlocListener<PaymentBloc, PaymentState>(
+      bloc: _paymentBloc,
+      listener: (context, state) {
+        if (state is PaymentSuccessed) {
+          Navigator.pop(context);
+          showModalBottomSheet(
+              context: context,
+              isScrollControlled: true,
+              builder: (context) => Image.file(state.ticket)).whenComplete(() {
+            context.router.replaceNamed('/');
+          });
+        } else if (state is PaymentInProgress) {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => const Center(
+              child: CircularProgressIndicator.adaptive(),
             ),
-          )
-        ],
+          );
+        } else if (state is PaymentError) {
+          showDialog(
+                  context: context,
+                  builder: (context) =>
+                      const Text('Произошла ошибка во время оплаты'))
+              .whenComplete(() => Navigator.pop(context));
+        }
+      },
+      child: Scaffold(
+        body: CustomScrollView(
+          slivers: [
+            const CinemaSliverAppBar(),
+            SliverToBoxAdapter(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Center(
+                    child: Text(
+                      'Проверьте информацию',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                    ),
+                  ),
+                  InfoBlockWidget(
+                    title: 'Фильм',
+                    subtitle: widget.session.film.title,
+                  ),
+                  InfoBlockWidget(
+                    title: 'Дата',
+                    subtitle: _formatDate(widget.session.date),
+                  ),
+                  InfoBlockWidget(
+                    title: 'Время',
+                    subtitle: _formatTime(widget.session.date),
+                  ),
+                  InfoBlockWidget(
+                    title: 'Места',
+                    subtitle: widget.selectedSeats.join(', '),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.all(10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Checkbox(
+                            value: _isSelected,
+                            activeColor: theme.primaryColor,
+                            onChanged: (value) {
+                              setState(() {
+                                _isSelected = value ?? false;
+                              });
+                            }),
+                        const Flexible(
+                          child: Text(
+                            'Я осознаю, что денежные средства за неиспользованный билет не возвращаются',
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  CinemaButton(
+                      width: MediaQuery.of(context).size.width,
+                      onPressed: () {
+                        _paymentBloc.add(PayEvent(reserve: widget.reserve));
+                      },
+                      color: _isSelected ? null : theme.hintColor,
+                      child: const Center(
+                          child: Text('Оплатить',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold))))
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
+  }
+
+  String _formatDate(String dateTime) {
+    final fDate = dateTime.split('T')[0].split('-').reversed.toList();
+    // Delete year
+    fDate.removeLast();
+    return fDate.join('.');
+  }
+
+  String _formatTime(String dateTime) {
+    final fTime = dateTime.split('T')[1].split('.')[0].split(':');
+    // Delete year
+    fTime.removeLast();
+    return fTime.join(':');
   }
 }
 

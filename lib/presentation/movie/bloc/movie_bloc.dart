@@ -10,15 +10,20 @@ part 'movie_event.dart';
 class MovieBloc extends Bloc<MovieEvent, MovieState> {
   MovieBloc() : super(MovieInitial()) {
     on<GetFilmById>((event, emit) async {
-      emit(MovieLoading());
-      try {
-        final dio = GetIt.I<Dio>();
-        final filmRequest = FilmRequest(dio: dio);
-        final filmInfo = await filmRequest.getFilmById(event.id);
-        emit(MovieLoaded(filmInfo));
-      } catch (e) {
-        emit(MovieError(e.toString()));
-      }
+      await _onMovieGetByID(emit, event);
     });
+  }
+
+  Future<void> _onMovieGetByID(
+      Emitter<MovieState> emit, GetFilmById event) async {
+    emit(MovieLoading());
+    try {
+      final dio = GetIt.I<Dio>();
+      final filmRequest = FilmRequest(dio: dio);
+      final filmInfo = await filmRequest.getFilmById(event.id);
+      emit(MovieLoaded(filmInfo));
+    } catch (e) {
+      emit(MovieError(e.toString()));
+    }
   }
 }
