@@ -156,6 +156,8 @@ class _MovieAppBarState extends State<MovieAppBar> {
                   colors: [
                     theme.colorScheme.surface.withOpacity(_opacity),
                     theme.colorScheme.surface.withOpacity(_opacity),
+                    theme.colorScheme.surface.withOpacity(_opacity),
+                    theme.colorScheme.surface,
                   ],
                 ),
               ),

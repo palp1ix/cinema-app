@@ -54,7 +54,7 @@ class _PaymentPageState extends State<PaymentPage> {
           showDialog(
                   context: context,
                   builder: (context) =>
-                      const Text('Произошла ошибка во время оплаты'))
+                      const Text('There was an error during payment'))
               .whenComplete(() => Navigator.pop(context));
         }
       },
@@ -68,25 +68,25 @@ class _PaymentPageState extends State<PaymentPage> {
                 children: [
                   const Center(
                     child: Text(
-                      'Проверьте информацию',
+                      'Check information',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     ),
                   ),
                   InfoBlockWidget(
-                    title: 'Фильм',
+                    title: 'Movie',
                     subtitle: widget.session.film.title,
                   ),
                   InfoBlockWidget(
-                    title: 'Дата',
+                    title: 'Date',
                     subtitle: _formatDate(widget.session.date),
                   ),
                   InfoBlockWidget(
-                    title: 'Время',
+                    title: 'Time',
                     subtitle: _formatTime(widget.session.date),
                   ),
                   InfoBlockWidget(
-                    title: 'Места',
+                    title: 'Seats',
                     subtitle: widget.selectedSeats.join(', '),
                   ),
                   Container(
@@ -104,7 +104,7 @@ class _PaymentPageState extends State<PaymentPage> {
                             }),
                         const Flexible(
                           child: Text(
-                            'Я осознаю, что денежные средства за неиспользованный билет не возвращаются',
+                            'I am aware that there are no refunds for unused tickets',
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),
@@ -119,7 +119,7 @@ class _PaymentPageState extends State<PaymentPage> {
                       },
                       color: _isSelected ? null : theme.hintColor,
                       child: const Center(
-                          child: Text('Оплатить',
+                          child: Text('Buy',
                               style: TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold))))
                 ],
