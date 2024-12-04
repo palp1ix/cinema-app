@@ -31,7 +31,6 @@ class _DatePickerState extends State<DatePicker> {
             _selectedDate = date;
           });
         },
-        locale: const Locale('ru'),
       ),
     );
   }

@@ -27,7 +27,7 @@ class CinemaSearchBar extends StatelessWidget {
               ),
               const SizedBox(width: 15),
               Text(
-                'Поиск',
+                'Search',
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,

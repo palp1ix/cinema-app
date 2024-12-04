@@ -41,7 +41,7 @@ class _TrailerViewWidgetState extends State<TrailerViewWidget>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return MainContainer(
-      title: 'Трейлер',
+      title: 'Trailer',
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
         child: YoutubePlayer(

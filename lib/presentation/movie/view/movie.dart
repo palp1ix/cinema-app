@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cinema/presentation/core/widgets/widgets.dart';
 import 'package:cinema/presentation/movie/widgets/advanced_information_widget.dart';
-import 'package:cinema/presentation/movie/widgets/information_container.dart';
 import 'package:cinema/presentation/movie/widgets/trailer_view_widget.dart';
 import 'package:cinema/data/models/session/session.dart';
 import 'package:cinema/router/router.dart';
@@ -55,10 +54,9 @@ class _MoviePageState extends State<MoviePage> {
                       ),
                     )),
               ),
-              const SliverToBoxAdapter(child: InformationContainer()),
               SliverToBoxAdapter(
                 child: MainContainer(
-                    title: 'Описание',
+                    title: 'Description',
                     child: Text(
                       widget.session.film.description,
                       style: const TextStyle(fontSize: 16),
@@ -80,7 +78,7 @@ class _MoviePageState extends State<MoviePage> {
                         session: widget.session));
                   },
                   child: const Text(
-                    'Забронировать',
+                    'Book Tickets',
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
                   ),

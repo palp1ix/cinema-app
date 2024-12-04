@@ -38,8 +38,8 @@ class _SignInPageState extends State<SignInPage> {
             await showDialog(
                 context: context,
                 builder: (context) => const AlertDialog(
-                      title: Text('Успешно'),
-                      content: Text('Вы успешно вошли в систему'),
+                      title: Text('Success'),
+                      content: Text('You have successfully logged in'),
                     ));
             Navigator.of(context).pop();
           }
@@ -47,7 +47,7 @@ class _SignInPageState extends State<SignInPage> {
         child: Scaffold(
           appBar: AppBar(
             title: Text(
-              'Добро пожаловать!',
+              'Welcome!',
               style: theme.textTheme.titleLarge,
             ),
           ),
@@ -62,7 +62,7 @@ class _SignInPageState extends State<SignInPage> {
       return Scaffold(
           appBar: AppBar(),
           body: const Center(
-            child: Text('Извините, вы уже вошли в систему'),
+            child: Text('Sorry, you\'re already logged in'),
           ));
     }
   }
@@ -87,7 +87,7 @@ class SignInWidget extends StatelessWidget {
     return DefaultAuthView(
         emailController: emailController,
         passwordController: passwordController,
-        buttonText: 'Войти',
+        buttonText: 'Login',
         onTextTap: () {
           context.router.replace(const SignUpRoute());
         },
@@ -95,7 +95,7 @@ class SignInWidget extends StatelessWidget {
           signInBloc.add(SignInWithEmailPassword(
               email: emailController.text, password: passwordController.text));
         },
-        smallInfoText: 'Нету аккаунта? Зарегестрируйся',
+        smallInfoText: 'Don\'t have an account? Sign up',
         theme: theme);
   }
 }

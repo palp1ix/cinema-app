@@ -83,78 +83,66 @@ class _TicketPageState extends State<TicketPage> {
             child: Scaffold(
               persistentFooterButtons: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    AnimatedContainer(
-                        duration: const Duration(milliseconds: 200),
-                        margin: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Column(
-                          children: [
-                            Text(
-                              'Цена: ',
-                              style: TextStyle(
-                                  color: theme.hintColor,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            BlocBuilder<SeatsPickerBloc, SeatsPickerState>(
-                              bloc: _seatsPickerBloc,
-                              builder: (context, state) {
-                                if (state is PriceCounted) {
-                                  return Text(
-                                    '${state.price}р',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20,
-                                        color: theme.primaryColor),
-                                  );
-                                } else {
-                                  return const SizedBox.shrink();
-                                }
-                              },
-                            ),
-                          ],
-                        )),
-                    BlocBuilder<ConfirmCubit, ConfirmState>(
-                      builder: (context, state) {
-                        if (state is ConfirmOn) {
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      AnimatedContainer(
+                          duration: const Duration(milliseconds: 200),
+                          margin: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Column(
+                            children: [
+                              Text(
+                                'Price: ',
+                                style: TextStyle(
+                                    color: theme.hintColor,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              BlocBuilder<SeatsPickerBloc, SeatsPickerState>(
+                                bloc: _seatsPickerBloc,
+                                builder: (context, state) {
+                                  if (state is PriceCounted) {
+                                    return Text(
+                                      '${state.price}р',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20,
+                                          color: theme.primaryColor),
+                                    );
+                                  } else {
+                                    return const SizedBox.shrink();
+                                  }
+                                },
+                              ),
+                            ],
+                          )),
+                      BlocBuilder<ConfirmCubit, ConfirmState>(
+                        builder: (context, state) {
                           return CinemaButton(
                             margin: const EdgeInsets.all(0),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 70, vertical: 10),
+                            width: 250,
+                            padding: const EdgeInsets.symmetric(vertical: 10),
                             onPressed: () {
-                              _reserveBloc.add(ReserveSeatsEvent(
-                                  sessionId: widget.session.id,
-                                  seatIds: _pickedSeats));
+                              state is ConfirmOn
+                                  ? _reserveBloc.add(ReserveSeatsEvent(
+                                      sessionId: widget.session.id,
+                                      seatIds: _pickedSeats))
+                                  : null;
                             },
-                            child: Text(
-                              'Купить билет',
-                              style: TextStyle(
-                                  color: theme.colorScheme.onSurface,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18),
+                            color: state is ConfirmOn
+                                ? theme.primaryColor
+                                : theme.hintColor.withOpacity(0.4),
+                            child: Center(
+                              child: Text(
+                                state is ConfirmOn ? 'Next' : 'Choose seats',
+                                style: TextStyle(
+                                    color: theme.colorScheme.onSurface,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18),
+                              ),
                             ),
                           );
-                        } else {
-                          return CinemaButton(
-                            isAnimated: false,
-                            margin: const EdgeInsets.all(0),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 30, vertical: 10),
-                            onPressed: () {},
-                            color: theme.hintColor.withOpacity(0.3),
-                            child: Text(
-                              'Выберите все пункты',
-                              style: TextStyle(
-                                  color: theme.hintColor,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18),
-                            ),
-                          );
-                        }
-                      },
-                    ),
-                  ],
-                )
+                        },
+                      )
+                    ]),
               ],
               body: CustomScrollView(
                 slivers: [
@@ -171,11 +159,11 @@ class _TicketPageState extends State<TicketPage> {
                                 color: theme.colorScheme.onSecondary,
                               ),
                               title: const Text(
-                                'Кинотеатр «Минск»',
+                                'Cinema «Minsk»',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                               subtitle: Text(
-                                'пр. Независимости 62, Минск',
+                                'Ave. Nezavisimosti 62, Minsk',
                                 style: TextStyle(
                                     color: theme.hintColor,
                                     fontWeight: FontWeight.bold),
@@ -191,7 +179,7 @@ class _TicketPageState extends State<TicketPage> {
                   ),
                   const SliverToBoxAdapter(
                     child: MainContainer(
-                        title: 'Выбор мест', child: SeatsPickerWidget()),
+                        title: 'Choice of seats', child: SeatsPickerWidget()),
                   )
                 ],
               ),

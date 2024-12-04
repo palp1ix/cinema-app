@@ -17,7 +17,7 @@ class PremiereWidget extends StatelessWidget {
       'https://webgate.24guru.by/uploads/events/thumbs/300x430/9TEz29zjV.jpg'
     ];
     return MainContainer(
-      title: 'Премьеры',
+      title: 'Premiere',
       child: CarouselSlider.builder(
         itemCount: 5,
         itemBuilder: (BuildContext context, int index, int pageViewIndex) {

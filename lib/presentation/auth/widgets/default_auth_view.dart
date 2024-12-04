@@ -33,7 +33,7 @@ class DefaultAuthView extends StatelessWidget {
           const SizedBox(height: 30),
           CinemaTextField(
             controller: emailController,
-            hintText: 'Почта',
+            hintText: 'Email',
           ),
           const SizedBox(
             height: 20,
@@ -41,7 +41,7 @@ class DefaultAuthView extends StatelessWidget {
           CinemaTextField(
             controller: passwordController,
             obscureText: true,
-            hintText: 'Пароль',
+            hintText: 'Password',
           ),
           if (secondPasswordController != null)
             const SizedBox(
@@ -51,7 +51,7 @@ class DefaultAuthView extends StatelessWidget {
             CinemaTextField(
               controller: secondPasswordController!,
               obscureText: true,
-              hintText: 'Повторите пароль',
+              hintText: 'Repeat password',
             ),
           GestureDetector(
               onTap: () {
@@ -59,7 +59,7 @@ class DefaultAuthView extends StatelessWidget {
               },
               child: Container(
                   margin: const EdgeInsets.all(10),
-                  child: const Text('Еще нет аккаунта? Зарегистрируйся'))),
+                  child: Text(smallInfoText))),
           GestureDetector(
             onTap: () {
               onButtonTap.call();

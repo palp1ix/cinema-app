@@ -3,10 +3,10 @@ import 'package:google_fonts/google_fonts.dart';
 
 final darkTheme = ThemeData(
   colorScheme: const ColorScheme.dark(
-      surface: Color.fromARGB(255, 15, 15, 15),
-      surfaceContainer: Color(0xFF242423),
-      onSurface: Color(0xFFFAF7F0),
-      onSecondary: Color(0xFFf77f00)),
+      surface: Color(0xFF1d1d27),
+      surfaceContainer: Color(0xFF2a2a39),
+      onSurface: Color(0xFFdadadc),
+      onSecondary: Color(0xFF413ba3)),
   inputDecorationTheme: const InputDecorationTheme(
     // prefixIcon: Icon(Icons.email),
     filled: true,
@@ -26,7 +26,7 @@ final darkTheme = ThemeData(
   indicatorColor: Colors.red,
   brightness: Brightness.dark,
   useMaterial3: true,
-  primaryColor: const Color(0xFFfca311),
+  primaryColor: const Color(0xFF3a3a9d),
   canvasColor: Colors.black,
-  fontFamily: GoogleFonts.getFont('Montserrat').fontFamily,
+  fontFamily: GoogleFonts.spaceGrotesk().fontFamily,
 );

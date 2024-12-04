@@ -36,8 +36,8 @@ class _SignUpPageState extends State<SignUpPage> {
               context: context,
               builder: (context) {
                 return const AlertDialog(
-                  title: Text('Успешно!'),
-                  content: Text('Вы успешно зарегистрировались!'),
+                  title: Text('Success!'),
+                  content: Text('You have successfully registered!'),
                 );
               });
           Navigator.of(context).pop();
@@ -46,7 +46,7 @@ class _SignUpPageState extends State<SignUpPage> {
       child: Scaffold(
           appBar: AppBar(
             title: Text(
-              'Добро пожаловать!',
+              'Welcome',
               style: theme.textTheme.titleLarge,
             ),
           ),
@@ -55,8 +55,8 @@ class _SignUpPageState extends State<SignUpPage> {
               passwordController: passwordController,
               secondPasswordController: passwordController2,
               theme: theme,
-              buttonText: 'Зарегистрироваться',
-              smallInfoText: 'Уже есть аккаунт? Войти',
+              buttonText: 'Sign up',
+              smallInfoText: 'Already have an account? Sign in',
               onTextTap: () {
                 context.router.replace(const SignInRoute());
               },

@@ -32,7 +32,8 @@ class AdvancedInfoContainer extends StatelessWidget {
             Text(
               value,
               style: TextStyle(
-                  color: theme.primaryColor, fontWeight: FontWeight.bold),
+                  color: theme.colorScheme.onSurface,
+                  fontWeight: FontWeight.bold),
             )
           ],
         ),

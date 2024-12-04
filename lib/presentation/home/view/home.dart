@@ -31,62 +31,11 @@ class _HomePageState extends State<HomePage> {
               children: [
                 CinemaSearchBar(),
                 ShownTodayWidget(),
-                SomeInfoWidget(),
                 PremiereWidget()
               ],
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class SomeInfoWidget extends StatelessWidget {
-  const SomeInfoWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20),
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: theme.colorScheme.surfaceContainer,
-          boxShadow: [
-            BoxShadow(
-                offset: const Offset(0, 5),
-                blurRadius: 20,
-                spreadRadius: 3,
-                color: theme.hintColor.withOpacity(0.12)),
-          ]),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Column(
-            children: [
-              Text(
-                'Скидки до 70%',
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: theme.primaryColor),
-              ),
-              Text(
-                'До 1 Января',
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: theme.hintColor),
-              ),
-            ],
-          ),
-          Image.asset(
-            'assets/images/cinema.png',
-            width: 160,
-          )
-        ],
       ),
     );
   }

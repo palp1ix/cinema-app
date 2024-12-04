@@ -55,9 +55,9 @@ class FilmRequest {
     try {
       // await setNewFilmRoomSession();
       // await changeFilmParam();
-      // FIXME: Delete -2
+      // FIXME: Delete -3
       final response = await dio
-          .get('$endpoint/api/sessions/current?daysOffset=${dayOffset - 2}');
+          .get('$endpoint/api/sessions/current?daysOffset=${dayOffset - 3}');
       final data = response.data as List<dynamic>;
       final List<Session> sessions =
           data.map((e) => Session.fromJson(e)).toList();

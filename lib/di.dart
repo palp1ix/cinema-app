@@ -35,7 +35,7 @@ Future<void> di() async {
   getIt.registerSingleton<FlutterSecureStorage>(secureStorage);
 
   final authManager = AuthManager();
-  //await authManager.logout();
+  // await authManager.logout();
   await authManager.initUser();
   getIt.registerSingleton<AuthManager>(authManager);
 }

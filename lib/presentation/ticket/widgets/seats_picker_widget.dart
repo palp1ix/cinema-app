@@ -28,9 +28,9 @@ class SeatsPickerHeader extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       mainAxisSize: MainAxisSize.max,
       children: [
-        InfoElement(color: theme.colorScheme.onSurface, text: 'Доступно'),
-        InfoElement(color: theme.hintColor, text: 'Занято'),
-        InfoElement(color: theme.primaryColor, text: 'Выбрано'),
+        InfoElement(color: theme.colorScheme.onSurface, text: 'Available'),
+        InfoElement(color: theme.hintColor, text: 'Reserved'),
+        InfoElement(color: theme.primaryColor, text: 'Selected'),
       ],
     );
   }

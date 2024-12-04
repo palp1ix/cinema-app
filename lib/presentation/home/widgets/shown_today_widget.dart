@@ -30,7 +30,7 @@ class _ShownTodayWidgetState extends State<ShownTodayWidget> {
       builder: (context, state) {
         if (state is SessionsLoaded) {
           return MainContainer(
-              title: 'Сегодня',
+              title: 'Today',
               child: CarouselSlider.builder(
                 itemCount: state.sessions.length,
                 itemBuilder:
