@@ -1,23 +1,20 @@
-import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:cinema/data/models/reserve/reserve.dart';
 import 'package:cinema/data/local_data_source/jwt_storage.dart';
-import 'package:cinema/repository/reserve_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
-import 'package:path_provider/path_provider.dart';
 
-class ReserveRequest implements ReserveRepository {
+class ReserveRequest {
   ReserveRequest({
     required this.dio,
   });
   final Dio dio;
   final endpoint = dotenv.get('ENDPOINT');
 
-  @override
-  Future<void> reserve(Reserve reserveModel) async {
+  Future<void> reserveByReserveModel(Reserve reserveModel) async {
     try {
       final data = reserveModel.toJson();
       final secureStorage = GetIt.I<FlutterSecureStorage>();
@@ -30,8 +27,7 @@ class ReserveRequest implements ReserveRepository {
     }
   }
 
-  @override
-  Future<int> buy(Reserve reserveModel) async {
+  Future<int> buyByReserveModel(Reserve reserveModel) async {
     try {
       final data = reserveModel.toJson();
       final response = await dio.post(
@@ -45,8 +41,7 @@ class ReserveRequest implements ReserveRepository {
     }
   }
 
-  @override
-  Future<File> getTicket(int id) async {
+  Future<Uint8List> getTicketByReserveId(int id) async {
     try {
       final secureStorage = GetIt.I<FlutterSecureStorage>();
       final token = await JwtStorage(storage: secureStorage).getJwt();
@@ -61,21 +56,10 @@ class ReserveRequest implements ReserveRepository {
       if (response.data == null) {
         throw Exception('No ticket found');
       }
-      final file = await _writeBytesToFile(response.data, id);
-
-      return file;
+      final ticketPdfBytes = Uint8List.fromList(response.data);
+      return ticketPdfBytes;
     } catch (e) {
       throw Exception(e);
     }
-  }
-
-  Future<File> _writeBytesToFile(dynamic data, int id) async {
-    // Create a temporary file to store the image
-    final tempDir = await getTemporaryDirectory();
-    final file = File('${tempDir.path}/ticket_$id.jpg');
-
-    // Write the bytes to the file
-    await file.writeAsBytes(data);
-    return file;
   }
 }

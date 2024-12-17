@@ -15,7 +15,7 @@ class AuthManager {
     await jwtStorage.setUserId(id);
   }
 
-  Future<int?> getId() async {
+  Future<int> getId() async {
     return await jwtStorage.getUserId();
   }
 

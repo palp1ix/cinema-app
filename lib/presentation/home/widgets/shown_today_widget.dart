@@ -1,7 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cinema/presentation/core/widgets/main_container.dart';
-import 'package:cinema/presentation/home/bloc/sessions_bloc.dart';
+import 'package:cinema/presentation/home/bloc/session_bloc/sessions_bloc.dart';
 import 'package:cinema/data/models/session/session.dart';
 import 'package:cinema/router/router.dart';
 import 'package:flutter/material.dart';
@@ -36,15 +37,19 @@ class _ShownTodayWidgetState extends State<ShownTodayWidget> {
                 itemBuilder:
                     (BuildContext context, int index, int pageViewIndex) {
                   Session session = state.sessions[index];
-                  return ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: GestureDetector(
-                      onTap: () {
-                        context.router.push(MovieRoute(session: session));
-                      },
-                      child: Image.network(
-                        session.film.coverLink,
-                        height: 320,
+                  return GestureDetector(
+                    onTap: () {
+                      context.router.push(MovieRoute(session: session));
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: CachedNetworkImage(
+                        imageUrl: session.film.coverLink,
+                        height: 250,
+                        fit: BoxFit.fill,
+                        imageBuilder: (context, imageProvider) {
+                          return Image(image: imageProvider);
+                        },
                       ),
                     ),
                   );

@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:cinema/data/models/reserve/reserve.dart';
 import 'package:cinema/data/remote_data_source/reserve_request.dart';
@@ -24,8 +24,8 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
       // FIXME: Delete this delay
       await Future.delayed(const Duration(seconds: 1));
       final reserveRequest = ReserveRequest(dio: GetIt.I<Dio>());
-      final id = await reserveRequest.buy(event.reserve);
-      final ticket = await reserveRequest.getTicket(id);
+      final id = await reserveRequest.buyByReserveModel(event.reserve);
+      final ticket = await reserveRequest.getTicketByReserveId(id);
       emit(PaymentSuccessed(
         ticket: ticket,
       ));

@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cinema/data/repository/reserver_repository.dart';
 import 'package:cinema/presentation/core/widgets/widgets.dart';
 import 'package:cinema/presentation/ticket/bloc/reserve_bloc/reserve_bloc.dart';
 import 'package:cinema/presentation/ticket/bloc/seats_occupied_bloc/seats_occupied_bloc.dart';
@@ -7,8 +8,10 @@ import 'package:cinema/presentation/ticket/bloc/seats_picker_cubit/confirm_cubit
 import 'package:cinema/presentation/ticket/widgets/widgets.dart';
 import 'package:cinema/data/models/session/session.dart';
 import 'package:cinema/router/router.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
 @RoutePage()
@@ -24,7 +27,7 @@ class TicketPage extends StatefulWidget {
 class _TicketPageState extends State<TicketPage> {
   final _seatsPickerBloc = SeatsPickerBloc(9.6);
   final _seatsOccupiedBloc = SeatsOccupiedBloc();
-  final _reserveBloc = ReserveBloc();
+  final _reserveBloc = ReserveBloc(ReserverRepositoryImpl(dio: GetIt.I<Dio>()));
 
   final List<int> _pickedSeats = [];
   DateTime date = DateTime.now();

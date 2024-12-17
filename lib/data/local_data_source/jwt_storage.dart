@@ -23,7 +23,11 @@ class JwtStorage {
   }
 
   Future<int> getUserId() async {
-    final id = await storage.read(key: "userId") ?? '0';
-    return int.parse(id);
+    final id = await storage.read(key: "userId");
+    if (id != null) {
+      return int.parse(id);
+    } else {
+      throw Exception("User id not found");
+    }
   }
 }

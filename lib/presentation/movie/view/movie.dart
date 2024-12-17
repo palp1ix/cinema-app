@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cinema/presentation/core/widgets/widgets.dart';
 import 'package:cinema/presentation/movie/widgets/advanced_information_widget.dart';
 import 'package:cinema/presentation/movie/widgets/trailer_view_widget.dart';
@@ -24,7 +25,7 @@ class _MoviePageState extends State<MoviePage> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.only(bottom: 20),
+        padding: const EdgeInsets.only(bottom: 0),
         child: Scaffold(
           body: CustomScrollView(
             controller: controller,
@@ -144,9 +145,17 @@ class _MovieAppBarState extends State<MovieAppBar> {
         background: Stack(
           fit: StackFit.expand,
           children: [
-            Image.network(
-              widget.session.film.coverLink,
+            CachedNetworkImage(
+              imageUrl: widget.session.film.coverLink,
+              width: MediaQuery.of(context).size.width,
               fit: BoxFit.cover,
+              imageBuilder: (context, imageProvider) {
+                return Image(
+                  image: imageProvider,
+                  width: MediaQuery.of(context).size.width,
+                  fit: BoxFit.cover,
+                );
+              },
             ),
             DecoratedBox(
               decoration: BoxDecoration(

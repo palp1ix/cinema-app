@@ -7,7 +7,7 @@ final class PaymentInitial extends PaymentState {}
 final class PaymentInProgress extends PaymentState {}
 
 final class PaymentSuccessed extends PaymentState {
-  final File ticket;
+  final Uint8List ticket;
 
   PaymentSuccessed({required this.ticket});
 }

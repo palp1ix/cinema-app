@@ -30,17 +30,10 @@ class _SignUpPageState extends State<SignUpPage> {
     final theme = Theme.of(context);
     return BlocListener<SignUpBloc, SignUpState>(
       bloc: signUpBloc,
-      listener: (context, state) async {
+      listener: (context, state) {
         if (state is SignUpSuccess) {
-          await showDialog(
-              context: context,
-              builder: (context) {
-                return const AlertDialog(
-                  title: Text('Success!'),
-                  content: Text('You have successfully registered!'),
-                );
-              });
-          Navigator.of(context).pop();
+          // TODO
+          context.router.back();
         }
       },
       child: Scaffold(

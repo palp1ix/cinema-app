@@ -35,13 +35,8 @@ class _SignInPageState extends State<SignInPage> {
         bloc: signInBloc,
         listener: (context, state) async {
           if (state is SignInSuccess) {
-            await showDialog(
-                context: context,
-                builder: (context) => const AlertDialog(
-                      title: Text('Success'),
-                      content: Text('You have successfully logged in'),
-                    ));
-            Navigator.of(context).pop();
+            // FIXME
+            context.router.back();
           }
         },
         child: Scaffold(

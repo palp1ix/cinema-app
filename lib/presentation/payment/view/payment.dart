@@ -4,6 +4,7 @@ import 'package:cinema/data/models/reserve/reserve.dart';
 import 'package:cinema/data/models/session/session.dart';
 import 'package:cinema/presentation/payment/bloc/payment_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:cinema/presentation/core/widgets/pdf_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
@@ -36,11 +37,20 @@ class _PaymentPageState extends State<PaymentPage> {
       listener: (context, state) {
         if (state is PaymentSuccessed) {
           Navigator.pop(context);
-          showModalBottomSheet(
+          showDialog(
               context: context,
-              isScrollControlled: true,
-              builder: (context) => Image.file(state.ticket)).whenComplete(() {
-            context.router.replaceNamed('/');
+              builder: (context) => SingleChildScrollView(
+                    child: Center(
+                      child: Container(
+                        padding: const EdgeInsets.all(16),
+                        child: PdfView(bytes: state.ticket),
+                      ),
+                    ),
+                  )).whenComplete(() {
+            if (mounted) {
+              // ignore: use_build_context_synchronously
+              context.router.replaceNamed('/');
+            }
           });
         } else if (state is PaymentInProgress) {
           showDialog(
@@ -55,7 +65,10 @@ class _PaymentPageState extends State<PaymentPage> {
                   context: context,
                   builder: (context) =>
                       const Text('There was an error during payment'))
-              .whenComplete(() => Navigator.pop(context));
+              .whenComplete(() {
+            // ignore: use_build_context_synchronously
+            if (mounted) Navigator.pop(context);
+          });
         }
       },
       child: Scaffold(
