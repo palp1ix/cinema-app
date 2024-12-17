@@ -4,7 +4,7 @@ A modern mobile application for browsing movies and purchasing tickets, built wi
 
 ## 📱 Screenshots
 
-|  |  |
+|  |  |main
 |------------|---------------|
 | ![Main Screen](screenshots/main_screen.png) | ![Main Screen 2](screenshots/main_screen_2.png) |
 
@@ -47,7 +47,7 @@ A modern mobile application for browsing movies and purchasing tickets, built wi
 - Android Studio / VS Code
 - Backend API running
 
-### Installation
+### AWESOME BACKEND FOR THIS APP ❤️
 
 1. Clone the repository
 ```bash
@@ -58,4 +58,3 @@ git clone https://github.com/nikameru/cinema-backend.git
 ```env
 ENDPOINT=http://127.0.0.1:3000
 ```
-
