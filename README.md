@@ -4,13 +4,21 @@ A modern mobile application for browsing movies and purchasing tickets, built wi
 
 ## 📱 Screenshots
 
-| Main Screen | Movie Details |
+|  |  |main
 |------------|---------------|
-| ![Main Screen](screenshots/main_screen.png) | ![Movie Details](screenshots/movie_details.png) |
+| ![Main Screen](screenshots/main_screen.png) | ![Main Screen 2](screenshots/main_screen_2.png) |
 
-| Buy Ticket - Header | Buy Ticket - Bottom |
+| |  |
+|--------------------|-------------------|
+| ![Movie Details](screenshots/movie_details_header.png) | ![Movie Details](screenshots/movie_details_bottom.png) |
+
+| |  |
 |--------------------|-------------------|
 | ![Buy Ticket Header](screenshots/buy_ticket_header.png) | ![Buy Ticket Bottom](screenshots/buy_ticket_bottom.png) |
+
+| |  |
+|--------------------|-------------------|
+| ![Login Screen](screenshots/login_screen.png) | ![Confirm Page](screenshots/confirm_screen.png) |
 
 ## ✨ Features
 
