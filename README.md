@@ -4,7 +4,7 @@ A modern mobile application for browsing movies and purchasing tickets, built wi
 
 ## 📱 Screenshots
 
-|  |  |main
+|  |  |
 |------------|---------------|
 | ![Main Screen](screenshots/main_screen.png) | ![Main Screen 2](screenshots/main_screen_2.png) |
 
